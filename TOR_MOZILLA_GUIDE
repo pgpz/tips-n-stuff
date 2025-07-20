@@ -1,0 +1,176 @@
+So, as you know, most Mozilla based browsers are highly secure, but not  FULLY!!!!! THIS is mainly for TOR(PLEASE, DO ALL OF about:config IF YOU ARE USING TOR. ALOT OF THESE ARE NOT DISABLED YET.), but can be used on ANY Mozilla ran browser.
+
+
+Even TOR, as you know it, the privacy based browser for .onion is NOT fully secure!!!!! even with the shield on, you are NOT fully secure from Javascript & WebRTC and other things. please follow this guide closely and read what each command does.
+
+you MUST enable all of these inside of tor if you want a full on safe browsing experience. Stuff like librewolf, firefox, icecat, you do NOT need to do all of these unless you absolutely know  you need to.
+
+ON MOZILLA BROWSERS THAT ARE NOT TOR:
+
+install these extensions if you are paranoid:
+
+1: NoScript
+
+2: uBlock Origin
+
+3: Privacy Badger
+
+4: DuckDuckGo
+
+5: Port Authority
+
+6: Trace
+
+7: User-Agent Switcher (note: this WILL fuck up your youtube videos, youll see what i mean)
+
+
+^ these extensions are VERY good if you want to avoid basic fingerprinting that mozilla does not block normally ^
+
+
+======================================================================================================================
+
+Now to the big step for your Mozilla lock down!!!!!
+
+go to your address bar and type "about:config" (THIS WILL NOT WORK ON CHROME. SWITCH TO MOZILLA PLEASE. I WILL NOT BE GIVING A GUIDE ON CHROME BECAUSE IT IS NOT POSSIBLE UNLESS YOU UNGOOGLE YOUR SHIT. JUST SWITCH TO MOZILLA.)
+
+inside of "about:config", follow these instructions CLOSELY as it will change your browser experience heavily. these are ALL resettable.
+
+# MOST IMPORTANT STEP EVER IF YOU WANT TO BE SECURE 
+
+Javascript.enabled = false ; this will disable ALL javascript inside of your browser. This will block MOST modern exploits & fingerprinting, this will stop ALOT of attacks & tracking methods.
+privacy.sanatizeOnShutdown = true ; makes sure all cookies, cache & storage get deleted everytime you close your browser(especially Tor) its very important for forensic recovery & tracking. it will wipe ALL data from your browser each time its closed.
+
+# Fingerprint Security
+
+
+dom.storage.clipboardevents.enabled = false ; disables 3rd=party from accessing your local storage. blocks crosssite tracking via DOM storage
+dom.event.clipboardevents.enabled = false ; prevents sites from knowing when you copy & paste, its used for tracking & info leaks
+geo.enabled = false ; TURN THIS OFF!!!!!!! disables geolocation APIs. fully stops location leaks if you know what you are doing.
+privacy.firstparty.isolate.block_post_message = true ; blocks postMessage crosssite communication.
+
+# Fingerprint protection
+
+privacy.resistFingerprinting.letterboxing = true ; enforces screen letterboxing to make your browser size non unique. prevents tracking from window size (check on ipleak.org)
+weblgl.disabled = true ; TURN THIS OFF!!!!!! leaks gpu details & enables unique fingerprinting.
+weblgl.enable-webgl2 = false ; disabled WebGL2.0
+media.peerconnection.enabled = false ; TURN THIS OFF!!!! disables WebRTC! can leak your IP through VPN & Tor.
+dom.enable_performance = false ; prevents websites from measuring performance/timing attacks.
+dom.enable_performance_navigation_timing = false ; disables timing info that is detailed. makes it difficult for sites to fingerprint you!
+dom.enable_performance_observer = false ; stops websites from getting REAL TIME updates.
+gfx.webrender.all = false ; turns off gpu rendering ; you can be fingerprinted by your gpu specs.
+privacy.resistFingerprinting.block_mozAddonManager = true ; hides the info about if you can install extensions or not (reduces the risk of looking unique.)
+
+# Cookie & storage
+
+network.cookie.lifetimePolicy = 2 ; forces cookies to expire when you close browser.
+network.cookie.thirdparty.sessionOnly = true ; makes 3rdparty cookies session ONLY.
+browser.sessionstore.privacy_level = 2 ; stops the saving of sensitive data
+
+# Strict Network Control
+
+network.http.referer.spoofSource = true ; sends a fake refer to the website you are on.
+network.http.sendSecureXSiteReferrer = false ; prevents sending refers when going between https sites (stops leak origin data between sites.)
+network.dns.disablePrefetch = true ; stops browser/tor from preresolving DNS. prevents leaking visited domains.
+network.predictor.enabled = false ; disables prefetch of pages, reduces the risk of network activity & makes leak potential small.
+network.http.referer.hideOnionSource = true ; prevents sending .onion domains as the refer to clearnet sites.
+
+# Font Masking
+
+gfx.font_rendering.graphite.enabled = false ; disables graphite font render. reduces fingerprint potential
+layout.css.font-visibility.level = 3 ; limits which fonts are revealed to the site.
+
+# Network Isolation
+
+network.http.referer.trimmingPolicy = 2 ; only send origin in refer header.
+network.http.referer.XOriginPolicy = 2 ; never send refers to 3rd party sites.
+network.http.referer.XOriginTrimmingPolicy = 2 ; strips path & query sending cross-origin requests.
+
+# Time Protection
+
+privacy.resistFingerprinting.reduceTimerPrecision = true ; reduces JS timer resolution (prevents high resolution attacks for OS fingerprinting)
+privacy.resistFingerprinting.reduceTimmerPrecision.microseconds = 10000 ; sets the JS timer. higher, the safer!!!!
+
+# Strict Isolation
+
+fission.autostart = true ; site isolation, each site runs in a seperate process. leaks are HARDER!
+privacy.firstparty.isolate = true ; each domain gets its own storage & cookies.
+
+# Noise reduction
+
+privacy.trackingprotection.fingerprinting.enabled = true ; activates anti-fingerprinting filter lists. will block all known fingerprinting users.
+privacy.trackingprotection.cryptomining.enabled = true ; blocks cryptomining scripts. self explanatory
+
+# Disable APIs that LEAK
+
+dom.webaudio.enabled = false ; disables web audio API. can be used for fingerprinting
+media.eme.enabled = false ; disables encrypted media extensions. reduces attack & fingerprinting.
+media.video+stats.enabled = false ; prevents leaking video hardware decoding stats
+
+# Lessening metadata leaks
+
+browser.startup.blankWindow = true ; opens blank tab on startup of browser. will prevent past data tracking
+browser.download.start_downloads_in_tmp_dir = true ; downloads files in a temp folder. avoids system traces thru downloads.
+browser.helperApps.deleteFileOnExit = true ; deletes temp downloaded files on exit.
+
+# Scured tracking & fingerprinting protection
+
+privacy.trackingprotection.enabled = true ; blocks all known trackers using mozillas list.
+privacy.trackingprotection.socialtracking.enabled = true ; blocks for social media trackers
+privacy.annotate_channels.strict_list.enabled = true ; marks connections to trackers for better privacy
+browser.send_pings = false ; disables ping requests when you click a link.
+
+# Disabling unneeded features
+
+browser.display.use_document_fonts = 0 ; prevents sites from using custom fonts
+pdfjs.enabled = true ; enables internal PDF viewer so files arent passed onto an external program(phishing)
+extensions.pocket.enabled = false ; disables pocket
+browser.safebrowsing.malware.enabled = false ; RELY ON YOUR OWN OPSEC! DO NOT TRUST GOOGLE WITH IT. COMMON SENSE IS THE BEST ANTIVIRUS.
+
+# Lessening browser identifiablity 
+
+webgl.enable-debug-renderer-info = false ; prevents stops from querying WebGL hardware details
+media.navigator.enabled = false ; blocks access to webcam & mic info
+dom.battery.enabled = false ; prevents battery status API which will leak unique info
+device.sensors,enabled = false ; disables device sensor APIs
+
+
+## Misc privacy
+
+accessibility.force_disabled = 1 ; disables accessibility services
+browser.cache.offline.enable = false ; disables offline cache.
+beacon.enabled = disables beacon API! sends analytics data when you leave a site.
+clipboard.plainTextOnly = true ; forces pasted text to be plaintext
+extensions.torbutton.use_nontor_proxy = false ; disables non-tor proxies inside of tor browser. will make all your traffic go through tor.
+extensions.torbutton.block_disk = true ; blocks tor from writing data to disk.
+
+# enforce HTTPs everywhere.
+
+dom.security.https_only_mode = true ; forces all connections to upgrade tp https.
+dom.security.https_only_mode.upgrade_local = true ; also forces https on localhost.
+security.mixed_content.block_content = true ; blocks scripts & iframes loaded over HTTP on HTTPS pages.
+
+# EXTRME HARDENING
+
+webspeech.recognition.enable = false ; disables speech recog API.
+webspeech.synth.enabled = false ; disables speech synth API.
+media.hardwaremediakeys.enabled = false prevents sites from interacting with media keys.
+device.sensors.motion.enabled = false ; disables motion sensors
+device.sensors.orientation.enabled = false ; disables orientation sensors.
+dom.gamepad.enabled = false ' disables gamepad API
+browser.urlbar.suggest.searches = false ; disables live search suggestions
+media.gmp-gmpopenh264.enabled = false ; disables OpenH264 plugin.
+media.gmp-widevinecdm.enabled = false ; disables Widevine DRM support. (MAKES NETFLIX & STREAMING SERVICES BREAK. YT STILL WORKS.)
+browser.helperApps.neverAsk.saveToDisk = application/pdf,application/octet-stream,application/zip ; prsets the download handler for common file types. very good if you are scared of malware!
+
+
+
+you can ALSO make a config for this called user.js inside of Tor or your Mozilla browser and use this format ::::
+
+`user_pref("javascript.enabled", false); ` <=== use this with everything i listed above and save n it should work1 but please do all of these manually to be safe. AND turn that shield on still if ur on tor!!!
+its still useful.
+
+Thank you if you read this! I hope this can help you with your Tor browsing & regular clearnet fingerprint protection.
+
+Credit to [Redacted] (unless he wants to be credited, lmk if u do.)
+
+have a blessed day/night!
