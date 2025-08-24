@@ -7,6 +7,7 @@
 - PortAuthority ; automatically blocks malicious websites from scanning your ports & blocks data collection scripts
 - uBlock Origin ; obviously, but please research it more. very good extension.
 - DuckDuckGo Privacy Essentials ; good for not getting your data scraped like its alcohol in 1920
+- Disconnect
 
 do not use this an excuse to not take other privacy measures. extensions will never fully protect you. there is no such thing as a "shield" or downloadable opsec.
 
