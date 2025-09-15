@@ -1,0 +1,83 @@
+ hello! have you broken your arch linux(or other systems too, only happened to me on arch cuz of a dumb tired decision lol) system and stuck on password/or display stuck when loading in? this may help you! 
+
+THIS GUIDE IS FOR CURIOUS PEOPLE WHO WANTED TO DELETE AN IMPORTANT FILE AND ACCIDENTALLY FUCKED THEIR SYSTEM ON SIGNIN, THIS MAY WORK FOR YOU IF YOUR PROBLEM IS DIFFERENT, SO READ CAREFULLY AS IT MAY SUIT YOU.
+      > this guide also assumes you have light linux knowledge and command line knowledge.
+
+
+- dont freak out! your system is NOT broken and  you do not have reinstall Linux
+- please try entering tty on reboot on your main system, if it freezes, follow these steps
+
+1.) chroot into arch using a liveUSB, i did this on EOS when I had to so it was easier to do
+2.) mount your root partition & chroot into it using arch-chroot 
+  > look through your journald & dmesg and try finding the issue at hand, as this will help your diagnosing 10x more.
+  > make sure to look thoroughly.
+3.) attempt by upgrading your system using "pacman -Syu", this may fix your issue if your problem is not severe, but dont count on it(if nothing fixes or if it refuses, keep following); if it says something like "exists in file system", dont fret.
+  > 
+4.) type "systemctl disable sddm", then do "systemctl stop sddm", then do "systemctl enable sddm", and "systemctl start sddm", (start & stop will probably not work but do the other 2 still, it can refresh and fix your issue possibly but keep following along as it most likely wont)
+5.) try reinstalling something like your desktop environment, if this works, great, if it doesnt, keep following!
+6.) exit chroot and unmount, as your tty is most likely fixed now from trying to upgrade(cant really explain why, but this is what fixed my tty. if anyone has an explanation, please tell me!)
+7.) reboot your system and once you reach the signin screen, enter your tty and upgrade your system using "pacman -Syu", if this does not work, please do " pacman -Syu --overwrite '*' ", this should fix your files and that pacman issue.
+8.) reboot one final time & it should let you type in your password or login thru tty without freezing or hanging.
+
+
+  if this guide helps you, please let me know! it worked perfect for me, so i wanted to share hoping it will help someone else one day. thank you and have an amazing day!!
+
+
+  -pgp/s
+
+
+
+  -----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: starting from now on, will include for transparency<3
+Comment: guide made with luv by pgp/s <3
+Comment: Fingerprint:	C1C0 4689 8D16 BEDD 2C18  E034 0947 C323 C1A9 BC99
+
+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
+=kk+B
+-----END PGP PUBLIC KEY BLOCK-----
